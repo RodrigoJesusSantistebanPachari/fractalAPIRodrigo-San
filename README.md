@@ -1,1 +1,1 @@
-# fractalAPIRodrigo-San
+It uses MongoDB, SpringBoot and React
