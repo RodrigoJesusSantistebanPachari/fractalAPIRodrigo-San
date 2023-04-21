@@ -1,0 +1,4 @@
+.product-column {
+  max-width: calc(25% - 10px);
+  margin-right: 20px;
+}

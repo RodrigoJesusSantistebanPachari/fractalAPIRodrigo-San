@@ -1,0 +1,79 @@
+.product-column {
+  max-width: calc(25% - 10px);
+  margin-right: 20px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0069d9;
+  border-color: #0062cc;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+
+/* Estilos para el fondo */
+body {
+  background-color: #f0f8ff;
+}
+
+/* Estilos para los títulos */
+h1, h2, h3, h4, h5, h6 {
+  color: #007bff;
+}
+
+/* Estilos para los productos */
+.product-column {
+  max-width: calc(25% - 10px);
+  margin-right: 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+}
+
+.product-column h5 {
+  color: #007bff;
+}
+
+.product-column p {
+  color: #6c757d;
+}
+
+/* Estilos para los botones de editar y borrar */
+.edit-button {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: #fff;
+}
+
+.edit-button:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+  color: #fff;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: #fff;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+  color: #fff;
+}
