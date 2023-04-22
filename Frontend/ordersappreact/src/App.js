@@ -1,6 +1,7 @@
 import './App.css';
 import {Col, Container, Row} from 'reactstrap';
 import ListOrders from './ListOrders';
+import OrderForm from './OrderForm';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BrowserRouter, Route, Switch, Link, Routes } from 'react-router-dom';
@@ -17,14 +18,8 @@ function App() {
   useEffect(loadOrders, []);
 
   return (
-    <>
+    <div className="app-container">
     <BrowserRouter>
-      <nav>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/my-orders">My Orders</Link></li>
-        </ul>
-      </nav>
       <Routes>
         <Route path="/" element={
           <>
@@ -33,10 +28,12 @@ function App() {
           </>
         }/>
         <Route path="/my-orders" element={<ListOrders order={order} />} />
+        <Route path="/add-order" element={<OrderForm />} />
       </Routes>
     </BrowserRouter>
-  </>
+  </div>
   );
 }
 
 export default App;
+
