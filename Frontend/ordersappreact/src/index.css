@@ -1,3 +1,11 @@
+.app-container {
+  background-color: #110c27; 
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  color: white;
+}
+
 .product-column {
   max-width: calc(25% - 10px);
   margin-right: 20px;
@@ -23,16 +31,6 @@
   border-color: #545b62;
 }
 
-/* Estilos para el fondo */
-body {
-  background-color: #f0f8ff;
-}
-
-/* Estilos para los títulos */
-h1, h2, h3, h4, h5, h6 {
-  color: #007bff;
-}
-
 /* Estilos para los productos */
 .product-column {
   max-width: calc(25% - 10px);
@@ -52,6 +50,11 @@ h1, h2, h3, h4, h5, h6 {
 .product-column p {
   color: #6c757d;
 }
+
+.blackFont {
+  color: #000000; /* Cambia #ff0000 por el código de color que desees */
+}
+
 
 /* Estilos para los botones de editar y borrar */
 .edit-button {
@@ -77,3 +80,14 @@ h1, h2, h3, h4, h5, h6 {
   border-color: #bd2130;
   color: #fff;
 }
+
+.banner {
+  background-color: #008897c5;
+  color: #FFFFFF;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
