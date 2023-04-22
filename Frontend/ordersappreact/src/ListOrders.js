@@ -1,11 +1,22 @@
 import React from "react";
 import CartItem from "./CartItem";
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+
 
 
 const ListOrders = ({order}) => {
     return (
         <>
         <div className="text-center">
+
+
+                <div className="banner d-flex justify-content-between">
+                <Link to="/" className="btn btn-secondary mr-auto">Volver</Link>
+                <h1 class="mx-auto">API For Fractal</h1>
+                    <button className="btn btn-success ml-auto">Create Order</button>
+                </div>
+
+
         <h3 className="mb-3"> List of orders: </h3>
         {
             order.map(orders =>
