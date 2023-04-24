@@ -3,20 +3,26 @@ package rodrigo.san.fractalapi.model;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Data
 @Document(collection = "orders")
-public class Product {
-    @MongoId
+public class Order {
+    @Id
     private String id;
-    private String name;
-    private float unitPrice;
-    private int qty;
-    private float totalPrice;
+    private String OrderNr;
+    private Date date;
+    private int nProducts;
+    private List<Product> products = new ArrayList<>();
+    private float finalPrice;
+
+    public void addProduct(Product product) {
+        products.add(product);
+    }
 }
