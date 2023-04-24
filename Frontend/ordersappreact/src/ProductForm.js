@@ -28,6 +28,7 @@ const ProductForm = () => {
       .then(() => {
         alert("Product added");
         loadOrders();
+        window.location.reload();
       });
   };
 
