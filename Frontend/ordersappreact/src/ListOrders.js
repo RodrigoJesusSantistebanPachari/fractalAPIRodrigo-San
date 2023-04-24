@@ -5,13 +5,11 @@ import ProductForm from './ProductForm';
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 
 
-
-
 const ListOrders = ({order, onDelete, onEdit }) => {
+
     return (
         <>
         <div className="text-center">
-
 
                 <div className="banner d-flex justify-content-between">
 
@@ -28,6 +26,9 @@ const ListOrders = ({order, onDelete, onEdit }) => {
             <div className="mb-3 border rounded p-3" key={orders.id}>
                 <div className="mb-3 border rounded p-3" key={order.id}>
                     <p>Order number: {orders.orderNr}</p>
+                    {orders.status === 0 && <p>Status: Pending</p>}
+                    {orders.status === 1 && <p>Status: In Progress</p>}
+                    {orders.status === 2 && <p>Status: Completed</p>}
                     <p>Date: {orders.date.split('T')[0]}</p>
                     <p>Time: {orders.date.slice(11,19)}</p>
                     <p>Final price: ${orders.finalPrice}</p>
@@ -35,10 +36,9 @@ const ListOrders = ({order, onDelete, onEdit }) => {
                     
                     <div className="mt-3 d-flex justify-content-center">
                         {orders.products && orders.products.map((product) => (
-                            <CartItem key={product.id} product={product} />
+                            <CartItem key={product.id} product={product} orderID={orders.id} />
                         ))}
                     </div>
-                    <p>{orders.id}</p>
                     <Link to={{pathname: '/add-product', search: `?ord=${orders.id}`}} className="btn btn-warning">Add New Product</Link>
                     <Link to="/add-order" className="btn btn-primary"  onClick={() => onEdit(orders)}>Edit</Link>
                     <button className="btn btn-danger" onClick={() => onDelete(orders)}>Delete</button>
@@ -47,7 +47,7 @@ const ListOrders = ({order, onDelete, onEdit }) => {
             </div>    
             ))
             : (
-                <p>No orders found.</p>
+            <p>No orders found.</p>
             
         )}
         </div>
