@@ -21,6 +21,7 @@ public class Order {
     private int nProducts;
     private List<Product> products = new ArrayList<>();
     private float finalPrice;
+    private int status = 0;
 
     public void addProduct(Product product) {
         products.add(product);
