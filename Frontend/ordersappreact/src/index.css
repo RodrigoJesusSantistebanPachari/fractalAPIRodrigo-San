@@ -93,3 +93,25 @@ h1, h2, h3, h4, h5, h6, p {
   margin-bottom: 20px;
 }
 
+.big-button {
+  font-size: 24px;
+  padding: 16px 32px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 500px;
+  border: 2px solid #ccc;
+  background-color: #f2f2f2;
+  margin: 0 auto;
+  padding: 20px;
+  flex-direction: column;
+}
+
+.view-orders-btn {
+  width: 100%;
+  margin-bottom: 10px;
+}
