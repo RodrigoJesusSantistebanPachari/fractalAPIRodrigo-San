@@ -14,6 +14,7 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import static java.util.UUID.randomUUID;
@@ -26,16 +27,34 @@ public class OrdersController {
     @Autowired
     private OrdersRepository ordersRepository;
 
+    //Get all Orders
     @GetMapping("")
     List<Order> index() {
         return ordersRepository.findAll();
     }
 
+    //Get pending orders
+    @GetMapping("/pending")
+    List<Order> pendingOrders() {
+        return ordersRepository.findPendingOrders();
+    }
+
+    //Get in progress orders
+    @GetMapping("/inprogress")
+    List<Order> inProgressOrders() {
+        return ordersRepository.findInProgressOrders();
+    }
+
+    //Get completed orders
+    @GetMapping("/completed")
+    List<Order> completedOrders() {
+        return ordersRepository.findCompletedOrders();
+    }
+
+    //Create order
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
     Order create(@RequestBody Order order) {
-
-        System.out.println(order.getOrderNr());
 
         //Set current date
         ZoneId zoneId = ZoneId.of("America/Lima");
@@ -68,8 +87,6 @@ public class OrdersController {
     @PutMapping("{id}/product")
     Order createProduct(@PathVariable String id, @RequestBody Product product) {
 
-        System.out.println(product.getName());
-
         Order orderFromDb = ordersRepository.findById(id).orElseThrow(RuntimeException::new);
         //Refresh to current date
 
@@ -86,16 +103,31 @@ public class OrdersController {
         //Set new product
         orderFromDb.addProduct(product);
 
+        //Count of selected products
+        if (orderFromDb.getProducts() != null) {
+            orderFromDb.setNProducts(orderFromDb.getProducts().size());
+        } else {
+            orderFromDb.setNProducts(0);
+        }
+
+        //Complete the final price with products' prices
+        float finalPrice = 0;
+        if (orderFromDb.getProducts() != null) {
+            for (Product p : orderFromDb.getProducts()) {
+                finalPrice += p.getTotalPrice();
+            }
+        }
+        orderFromDb.setFinalPrice(finalPrice);
+
         return ordersRepository.save(orderFromDb);
     }
 
     @PutMapping("{id}")
     Order updateProduct(@PathVariable String id, @RequestBody Order order) {
-        System.out.println("111111111111");
-        Order orderFromDb = ordersRepository.findById(id).orElseThrow(RuntimeException::new);
-        System.out.println("Pasó y encontró");
-        //Refresh to current date
 
+        Order orderFromDb = ordersRepository.findById(id).orElseThrow(RuntimeException::new);
+
+        //Refresh to current date
         ZoneId zoneId = ZoneId.of("America/Lima");
         ZonedDateTime zdt = ZonedDateTime.now(zoneId);
         Date date = Date.from(zdt.toInstant());
@@ -104,16 +136,52 @@ public class OrdersController {
 
         //Set new data
         orderFromDb.setOrderNr(order.getOrderNr());
+        orderFromDb.setStatus(order.getStatus());
 
         return ordersRepository.save(orderFromDb);
     }
 
+    @DeleteMapping("{id}/product/{idProduct}")
+    Order deleteProduct(@PathVariable String id, @PathVariable String idProduct) {
+        Order orderFromDb = ordersRepository.findById(id).orElseThrow(RuntimeException::new);
+        List<Product> productsAux = orderFromDb.getProducts();
 
+        for(Product p : productsAux){
+            if (Objects.equals(p.getId(), idProduct)){
+                productsAux.remove(p);
+                break;
+            }
+        }
+
+        orderFromDb.setProducts(productsAux);
+
+        //Count of selected products
+        if (orderFromDb.getProducts() != null) {
+            orderFromDb.setNProducts(orderFromDb.getProducts().size());
+        } else {
+            orderFromDb.setNProducts(0);
+        }
+
+        //Complete the final price with products' prices
+        float finalPrice = 0;
+        if (orderFromDb.getProducts() != null) {
+            for (Product p : orderFromDb.getProducts()) {
+                finalPrice += p.getTotalPrice();
+            }
+        }
+
+        orderFromDb.setFinalPrice(finalPrice);
+
+
+        return ordersRepository.save(orderFromDb);
+
+    }
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("{id}")
     void delete(@PathVariable String id){
         Order order = ordersRepository.findById(id).orElseThrow(RuntimeException::new);
         ordersRepository.delete(order);
     }
+
 
 }
